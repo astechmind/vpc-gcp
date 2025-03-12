@@ -1,10 +1,3 @@
-# Usa uma VPC existente caso existing
-data "google_compute_network" "existing_vpc" {
-  count = var.use_existing_vpc ? 1 : 0
-  name  = var.vpc_name
-  project = var.project_id
-}
-
 # Criação da VPC
 resource "google_compute_network" "vpc" {
   name                    = var.vpc_name
