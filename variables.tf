@@ -34,10 +34,3 @@ variable "database_subnets" {
   description = "Mapa de sub-redes de banco de dados com nome e CIDR"
   type        = map(string)
 }
-
-variable "use_existing_vpc" {
-  description = "Define se uma VPC existente será usada (true) ou se uma nova VPC será criada (false)"
-  type        = bool
-  default     = false  # Defina como false se quiser criar uma nova VPC por padrão
-}
-
