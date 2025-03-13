@@ -6,13 +6,13 @@ resource "google_compute_network" "vpc" {
   routing_mode            = "REGIONAL"
 }
 
-# Subnets Privadas (com nomes e IP Privado do Google ativado)
+# Subnets Privadas
 resource "google_compute_subnetwork" "private" {
   for_each = var.private_subnets
 
-  name                     = each.key
-  ip_cidr_range            = each.value
-  region                   = var.region
+  name                     = each.value.name
+  ip_cidr_range            = each.value.cidr
+  region                   = each.value.region
   project                  = var.project_id
   network                  = google_compute_network.vpc.id
   private_ip_google_access = true
@@ -22,9 +22,9 @@ resource "google_compute_subnetwork" "private" {
 resource "google_compute_subnetwork" "public" {
   for_each = var.public_subnets
 
-  name          = each.key
-  ip_cidr_range = each.value
-  region        = var.region
+  name          = each.value.name
+  ip_cidr_range = each.value.cidr
+  region        = each.value.region
   project       = var.project_id
   network       = google_compute_network.vpc.id
 }
@@ -33,9 +33,9 @@ resource "google_compute_subnetwork" "public" {
 resource "google_compute_subnetwork" "database" {
   for_each = var.database_subnets
 
-  name          = each.key
-  ip_cidr_range = each.value
-  region        = var.region
+  name          = each.value.name
+  ip_cidr_range = each.value.cidr
+  region        = each.value.region
   project       = var.project_id
   network       = google_compute_network.vpc.id
 }
